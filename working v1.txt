@@ -1,0 +1,53 @@
+#define motor1f 0
+#define motor1r 1 
+#define motor2f 2
+#define motor2r 3
+#define irLeft 7
+#define irRight 6
+
+
+void setup() { 
+  //left sensor output to arduno input 
+  pinMode(irLeft,INPUT); 
+  //Right Sensor output to arduino input 
+  pinMode(irRight,INPUT); 
+  //output from audrino to motor drive 
+  //Right motor audrino to motor Drive 
+  pinMode(motor1f,OUTPUT); 
+  pinMode(motor1r,OUTPUT); 
+  //left Motor Arduino motor Drive 
+  pinMode(motor2f,OUTPUT); 
+  pinMode(motor2r,OUTPUT); 
+} 
+  void loop() { 
+    //left sensor input 
+    int l1=digitalRead(irLeft); 
+    //Right Sensor Input 
+    int r1=digitalRead(irRight); 
+    if((l1==LOW)&&(r1==LOW)) 
+    { 
+       //Stay still
+      digitalWrite(motor1f,LOW); 
+      digitalWrite(motor1r,LOW); 
+      digitalWrite(motor2f,LOW); 
+      digitalWrite(motor2r,LOW); 
+    } else if((l1==LOW)&&(r1==HIGH)) {
+        //turns right 
+        digitalWrite(motor1f,HIGH); 
+        digitalWrite(motor1r,LOW); 
+        digitalWrite(motor2f,LOW); 
+        digitalWrite(motor2r,HIGH); 
+    } else if((l1==HIGH)&&(r1==LOW)) {
+          //turns left 
+          digitalWrite(motor1f,LOW); 
+          digitalWrite(motor1r,HIGH); 
+          digitalWrite(motor2f,HIGH); 
+          digitalWrite(motor2r,LOW); 
+    } else if((l1==HIGH)&&(r1==HIGH)) {
+          //U Turn
+         digitalWrite(motor1f,LOW);
+         digitalWrite(motor1r,HIGH); 
+         digitalWrite(motor2f,LOW); 
+         digitalWrite(motor2r,HIGH);
+    }
+ }

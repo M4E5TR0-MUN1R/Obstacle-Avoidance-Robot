@@ -1,0 +1,50 @@
+const int pingPin = 7; // Trigger Pin of Ultrasonic Sensor
+const int echoPin = 6; // Echo Pin of Ultrasonic Sensor
+const int pingPin2 = 11; // Trigger Pin of Ultrasonic Sensor 2
+const int echoPin2 = 10; // Echo Pin of Ultrasonic Sensor 2
+
+void setup() {
+   Serial.begin(9600); // Starting Serial Terminal
+   pinMode(pingPin, OUTPUT);
+   pinMode(pingPin2, OUTPUT);
+   pinMode(echoPin, INPUT);
+   pinMode(echoPin2, INPUT);
+}
+
+void loop() {
+   distanceRead();
+   delay(250);
+}
+
+void distanceRead()
+{
+   //Right
+   long durationR, cmR;
+   digitalWrite(pingPin, LOW);
+   delayMicroseconds(2);
+   digitalWrite(pingPin, HIGH);
+   delayMicroseconds(10);
+   digitalWrite(pingPin, LOW);
+   durationR = pulseIn(echoPin, HIGH);
+   cmR = microsecondsToCentimeters(durationR);
+   Serial.print(cmR);
+   Serial.print("Right cm");
+   Serial.println();
+
+   //Left
+   long durationL, cmL;
+   digitalWrite(pingPin2, LOW);
+   delayMicroseconds(2);
+   digitalWrite(pingPin2, HIGH);
+   delayMicroseconds(10);
+   digitalWrite(pingPin2, LOW);
+   durationL = pulseIn(echoPin2, HIGH);
+   cmL = microsecondsToCentimeters(durationL);
+   Serial.print(cmL);
+   Serial.print("Left cm");
+   Serial.println();
+}
+
+long microsecondsToCentimeters(long microseconds) {
+   return microseconds / 29 / 2;
+}
